@@ -75,10 +75,6 @@ class SearchViewController: UIViewController, NetworkManagerDelegate {
         tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
         
     }
-    override func viewDidAppear(_ animated: Bool) {
-        searchBar(navigationItem.searchController!.searchBar, textDidChange: "Cobra")
-
-    }
 }
 
 extension SearchViewController: UITableViewDelegate {
