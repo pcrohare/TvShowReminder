@@ -55,6 +55,8 @@ class ShowTableViewCell: UITableViewCell {
         
         titleLabel.leftAnchor.constraint(equalTo: self.contentView.leftAnchor, constant: 15).isActive = true
         titleLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -15).isActive = true
+        titleLabel.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: 0).isActive = true
+        titleLabel.lineBreakMode = .byTruncatingTail
     }
     
     private func layoutImageView() {

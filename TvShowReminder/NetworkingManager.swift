@@ -18,7 +18,7 @@ class NetworkManager {
     
     var delegate: NetworkManagerDelegate?
     
-    public func loadImage(in imageView: UIImageView, withPath imagePath: String, tableView: UITableView) {
+    public func loadImage(in imageView: UIImageView, withPath imagePath: String) {
         
         let urlStr = "https://image.tmdb.org/t/p/w500" + imagePath
         let url = URL(string: urlStr)!

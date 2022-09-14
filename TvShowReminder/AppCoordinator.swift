@@ -44,15 +44,15 @@ class AppCoordinator: NSObject, Coordinator {
     }
     
     func showDetails(showModel: ShowModel) {
-        let detailViewController = DetailViewController()
-        detailViewController.coordinator = self
+        let detailViewController = DetailViewController(collectionViewLayout: HeaderLayout())
         detailViewController.show = showModel
-        navigationController.pushViewController(detailViewController, animated: true)
+        detailViewController.coordinator = self
+        navigationController.pushViewController(detailViewController, animated: false)
     }
     
-    func loadImage(in imageView: UIImageView?, withPath path: String?, tableView: UITableView) {
+    func loadImage(in imageView: UIImageView?, withPath path: String?) {
         if let imageView = imageView, let path = path {
-            networkManager.loadImage(in: imageView, withPath: path, tableView: tableView)
+            networkManager.loadImage(in: imageView, withPath: path)
         }
     }
     

@@ -21,7 +21,7 @@ class HomeViewController: UIViewController, NetworkManagerDelegate {
     }
     
     func didFail(_ error: Error?) {
-        print(error)
+        print(error.debugDescription)
     }
     
     var shows: [ShowModel]? {
@@ -37,9 +37,6 @@ class HomeViewController: UIViewController, NetworkManagerDelegate {
     
     var coordinator: AppCoordinator?
     
-    override func viewWillAppear(_ animated: Bool) {
-        navigationItem.searchController?.searchBar.isHidden = true
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +121,9 @@ extension HomeViewController: UITableViewDelegate {
     }
     
 
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        true
+    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
@@ -154,7 +154,7 @@ extension HomeViewController: UITableViewDataSource {
         showCell.genreLabel.text = shows?[indexPath.row].genre
         showCell.titleLabel.text = shows?[indexPath.row].title
                 
-        self.coordinator?.loadImage(in: showCell.imageContainer, withPath: self.shows?[indexPath.row].posterPath, tableView: tableView)
+        self.coordinator?.loadImage(in: showCell.imageContainer, withPath: self.shows?[indexPath.row].posterPath)
         
         return showCell
     }

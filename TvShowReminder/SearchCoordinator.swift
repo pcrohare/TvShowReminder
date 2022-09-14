@@ -18,7 +18,7 @@ class SearchCoordinator: NSObject, Coordinator {
     
     func start() {
         navigationController.delegate = self
-        let vc = SearchViewController(style: .plain)
+        let vc = SearchViewController()
         vc.coordinator = self
         navigationController.pushViewController(vc, animated: false)
     }
@@ -35,7 +35,7 @@ class SearchCoordinator: NSObject, Coordinator {
     
     func loadImage(in imageView: UIImageView?, withPath path: String?, tableView: UITableView) {
         if let imageView = imageView, let path = path {
-            networkManager?.loadImage(in: imageView, withPath: path, tableView: tableView)
+            networkManager?.loadImage(in: imageView, withPath: path)
         }
     }
     
