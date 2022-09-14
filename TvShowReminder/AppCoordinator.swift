@@ -14,7 +14,7 @@ class AppCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     var networkManager: NetworkManager
     
-    var subscribedShows: [ShowModel]()
+    var subscribedShows = [ShowModel]()
     
     func start() {
         self.navigationController.delegate = self

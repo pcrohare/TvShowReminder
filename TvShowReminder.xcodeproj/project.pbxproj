@@ -20,8 +20,6 @@
 		1803C72928D1415700707E71 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803C72828D1415700707E71 /* SearchCoordinator.swift */; };
 		1803C72B28D1531C00707E71 /* ShowTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803C72A28D1531C00707E71 /* ShowTableViewCell.swift */; };
 		1803C72D28D156E600707E71 /* UIColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1803C72C28D156E600707E71 /* UIColorUtils.swift */; };
-		18C9102B28D1772D00669A0A /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9102A28D1772D00669A0A /* HeaderView.swift */; };
-		18C9102D28D177CD00669A0A /* HeaderLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C9102C28D177CD00669A0A /* HeaderLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,8 +38,6 @@
 		1803C72828D1415700707E71 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		1803C72A28D1531C00707E71 /* ShowTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowTableViewCell.swift; sourceTree = "<group>"; };
 		1803C72C28D156E600707E71 /* UIColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorUtils.swift; sourceTree = "<group>"; };
-		18C9102A28D1772D00669A0A /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		18C9102C28D177CD00669A0A /* HeaderLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,8 +70,6 @@
 		1803C70728D0FC0A00707E71 /* TvShowReminder */ = {
 			isa = PBXGroup;
 			children = (
-				18C9102A28D1772D00669A0A /* HeaderView.swift */,
-				18C9102C28D177CD00669A0A /* HeaderLayout.swift */,
 				1803C72428D126AC00707E71 /* SearchViewController.swift */,
 				1803C72628D1331000707E71 /* DetailViewController.swift */,
 				1803C72028D0FFAD00707E71 /* HomeViewController.swift */,
@@ -165,7 +159,6 @@
 			files = (
 				1803C70D28D0FC0A00707E71 /* ViewController.swift in Sources */,
 				1803C71F28D0FF6F00707E71 /* Coordinator.swift in Sources */,
-				18C9102D28D177CD00669A0A /* HeaderLayout.swift in Sources */,
 				1803C72728D1331000707E71 /* DetailViewController.swift in Sources */,
 				1803C72528D126AC00707E71 /* SearchViewController.swift in Sources */,
 				1803C72128D0FFAD00707E71 /* HomeViewController.swift in Sources */,
@@ -176,7 +169,6 @@
 				1803C72B28D1531C00707E71 /* ShowTableViewCell.swift in Sources */,
 				1803C72328D10A3F00707E71 /* NetworkingManager.swift in Sources */,
 				1803C72D28D156E600707E71 /* UIColorUtils.swift in Sources */,
-				18C9102B28D1772D00669A0A /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +298,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TvShowReminder/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -332,6 +326,8 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				ENABLE_TESTABILITY = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TvShowReminder/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
