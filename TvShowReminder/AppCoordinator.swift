@@ -14,6 +14,8 @@ class AppCoordinator: NSObject, Coordinator {
     var navigationController: UINavigationController
     var networkManager: NetworkManager
     
+    var subscribedShows: [ShowModel]()
+    
     func start() {
         self.navigationController.delegate = self
         let vc = HomeViewController()
@@ -24,6 +26,7 @@ class AppCoordinator: NSObject, Coordinator {
     init(navigationController: UINavigationController) {
         self.navigationController = navigationController
         self.networkManager = NetworkManager()
+        self.subscribedShows = [ShowModel]()
         
     }
     
@@ -44,10 +47,13 @@ class AppCoordinator: NSObject, Coordinator {
     }
     
     func showDetails(showModel: ShowModel) {
-        let detailViewController = DetailViewController(collectionViewLayout: HeaderLayout())
-        detailViewController.show = showModel
-        detailViewController.coordinator = self
-        navigationController.pushViewController(detailViewController, animated: false)
+        
+            if let detailViewController = DetailViewController(coordinator: self, showModel: showModel) {
+                detailViewController.show = showModel
+                self.navigationController.pushViewController(detailViewController, animated: true)
+            }
+        
+        
     }
     
     func loadImage(in imageView: UIImageView?, withPath path: String?) {
@@ -58,6 +64,21 @@ class AppCoordinator: NSObject, Coordinator {
     
     func loadShows() {
         networkManager.loadShows()
+    }
+    
+    func subscribeShow(_ show: ShowModel) {
+        
+        subscribedShows.append(show)
+        
+    }
+    
+    func unsubscribeShow(_ show: ShowModel) {
+        subscribedShows.enumerated().forEach { index, showModel in
+            if showModel.id == show.id {
+                subscribedShows.remove(at: index)
+            }
+            
+        }
     }
     
 }
@@ -74,6 +95,7 @@ extension AppCoordinator: UINavigationControllerDelegate {
         }
         
     }
+    
     
     
 }

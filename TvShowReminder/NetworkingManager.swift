@@ -67,7 +67,7 @@ class NetworkManager {
                                 for genreData in genresList.genres {
                                     for showData in latestShows.results {
                                         if genreData.id == showData.genre_ids.first! {
-                                            shows.append(ShowModel(title: showData.name, description: showData.overview, posterPath: showData.poster_path, genre: genreData.name))
+                                            shows.append(ShowModel(title: showData.name, description: showData.overview, posterPath: showData.poster_path, genre: genreData.name, id: showData.id, backdropPath: showData.backdrop_path))
                                         }
                                     }
                                 }
@@ -157,8 +157,13 @@ public struct ShowData: Codable {
     let genre_ids: [Int]
     let id: Int
     let poster_path: String
+    let backdrop_path: String
 }
 
 public struct GenreListData: Codable {
     let genres: [GenreData]
+}
+
+public struct ShowDetailsData: Codable {
+    
 }

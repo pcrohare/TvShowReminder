@@ -12,10 +12,14 @@ struct ShowModel {
     let description: String
     let posterPath: String
     let genre: String
+    let id: Int
+    let backdropPath: String
 }
 
 
 class HomeViewController: UIViewController, NetworkManagerDelegate {
+    
+    
     func didLoadShows(shows: [ShowModel]) {
         self.shows = shows
     }
@@ -37,27 +41,12 @@ class HomeViewController: UIViewController, NetworkManagerDelegate {
     
     var coordinator: AppCoordinator?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        if let navigationController = self.navigationController {
-            coordinator = AppCoordinator(navigationController: navigationController)
-            coordinator?.networkManager.delegate = self
-            coordinator?.loadShows()
-            
-        }
-        
-        
-       
         layoutNavigationBar()
         layoutAllShowsStack()
-        
-        
-        
     }
-    
     private func layoutNavigationBar() {
         self.title = "TvShowReminder"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchTapped))
@@ -66,8 +55,11 @@ class HomeViewController: UIViewController, NetworkManagerDelegate {
         self.navigationController?.navigationBar.barTintColor = UIColor(hex: "#000000e6")
         self.navigationController?.navigationBar.isTranslucent = false
         self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-        
-        
+        if let navigationController = self.navigationController {
+            coordinator = AppCoordinator(navigationController: navigationController)
+            coordinator?.networkManager.delegate = self
+            coordinator?.loadShows()
+        }
     }
     
     private func layoutAllShowsStack() {
@@ -100,6 +92,7 @@ class HomeViewController: UIViewController, NetworkManagerDelegate {
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.showsVerticalScrollIndicator = false
         tableView.register(ShowTableViewCell.self, forCellReuseIdentifier: "showCellID")
 
     }
@@ -135,8 +128,6 @@ extension HomeViewController: UITableViewDelegate {
 }
 
 extension HomeViewController: UITableViewDataSource {
-    
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let shows = self.shows {
             return shows.count
@@ -146,17 +137,21 @@ extension HomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let showCell = tableView.dequeueReusableCell(withIdentifier: "showCellID", for: indexPath) as! ShowTableViewCell
-        
-
-        
         showCell.genreLabel.text = shows?[indexPath.row].genre
         showCell.titleLabel.text = shows?[indexPath.row].title
-                
-        self.coordinator?.loadImage(in: showCell.imageContainer, withPath: self.shows?[indexPath.row].posterPath)
         
+        self.coordinator?.loadImage(in: showCell.imageContainer, withPath: self.shows?[indexPath.row].posterPath)
         return showCell
     }
     
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let showCell = cell as? ShowTableViewCell {
+            showCell.imageContainer.image = nil
+        }
+    }
+    
 }
+
+
+

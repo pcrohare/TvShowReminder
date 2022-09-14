@@ -10,18 +10,21 @@ import UIKit
 class HeaderView: UICollectionReusableView {
     
     let imageView: UIImageView = {
-        let iv = UIImageView()
-        iv.contentMode = .scaleAspectFill
-        iv.clipsToBounds = true
-        iv.translatesAutoresizingMaskIntoConstraints = false
-        return iv
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    let subscribeButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        // custom code for layout
-        
-        backgroundColor = .red
         
         addSubview(imageView)
         imageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
@@ -29,6 +32,11 @@ class HeaderView: UICollectionReusableView {
         imageView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         imageView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
 
+        addSubview(subscribeButton)
+        subscribeButton.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        subscribeButton.centerYAnchor.constraint(equalTo: self.centerYAnchor, constant: 20).isActive = true
+        subscribeButton.setTitle("Subscribirse", for: .normal)
+        
 
 
     }
@@ -38,3 +46,4 @@ class HeaderView: UICollectionReusableView {
     }
     
 }
+

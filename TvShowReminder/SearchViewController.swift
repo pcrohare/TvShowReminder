@@ -41,43 +41,52 @@ class SearchViewController: UIViewController, NetworkManagerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureNavBar()
+        configureTableView()
+        coordinator?.loadShows(delegate: self)
+    }
+    
+    private func configureTableView() {
         tableView = UITableView()
-        self.view.backgroundColor = .blue
-        navigationController?.navigationBar.backItem?.title = ""
-        navigationItem.searchController = UISearchController()
-        navigationController?.navigationBar.tintColor = .white
-        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
-
-        self.view.backgroundColor = UIColor(hex: "#1b1b1bff")
-
-        self.navigationItem.searchController?.searchBar.delegate = self
-        
-        DispatchQueue.main.async { [unowned self] in
-            
-            UIView.animate(withDuration: .zero) {
-                self.navigationItem.searchController?.searchBar.becomeFirstResponder()
-
-            }
-        }
-        
+        self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .clear
         tableView.register(ShowTableViewCell.self, forCellReuseIdentifier: "showCellID")
-        self.view.addSubview(tableView)
-        
-        coordinator?.loadShows(delegate: self)
-        
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.leftAnchor.constraint(equalTo: self.view.leftAnchor, constant: 15).isActive = true
         tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 15).isActive = true
         tableView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: -15).isActive = true
         tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor, constant: 0).isActive = true
+
+
         
     }
-    override func viewDidAppear(_ animated: Bool) {
-        searchBar(navigationItem.searchController!.searchBar, textDidChange: "Cobra")
+    
+    private func configureNavBar() {
+        navigationController?.navigationBar.backItem?.title = ""
+        navigationItem.searchController = UISearchController()
+        navigationController?.navigationBar.tintColor = .white
+        self.navigationController?.navigationBar.titleTextAttributes = [.foregroundColor: UIColor.white]
+        self.view.backgroundColor = UIColor(hex: "#1b1b1bff")
+        self.navigationItem.searchController?.searchBar.delegate = self
+        self.navigationItem.searchController?.searchBar.scopeButtonTitles = ["Title", "Genre"]
+        self.navigationItem.searchController?.searchBar.searchTextField.textColor = .white
+        // Selected text
+        let titleTextAttributesSelected = [NSAttributedString.Key.foregroundColor: UIColor.black]
+        UISegmentedControl.appearance().setTitleTextAttributes(titleTextAttributesSelected, for: .selected)
 
+        // Normal text
+        let titleTextAttributesNormal = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        UISegmentedControl.appearance().setTitleTextAttributes(titleTextAttributesNormal, for: .normal)
+        
+        DispatchQueue.main.async { [unowned self] in
+            UIView.animate(withDuration: .zero) {
+                self.navigationItem.searchController?.searchBar.becomeFirstResponder()
+                searchBar(self.navigationItem.searchController!.searchBar, textDidChange: "A")
+            }
+        }
     }
 }
 
@@ -138,10 +147,17 @@ extension SearchViewController: UISearchBarDelegate {
             if searchText == "" {
                 filteredShows = shows
             }
-            
-            for show in shows {
-                if show.title.uppercased().contains(searchText.uppercased()) {
-                    filteredShows?.append(show)
+            if searchBar.selectedScopeButtonIndex == 0 {
+                for show in shows {
+                    if show.title.uppercased().contains(searchText.uppercased()) {
+                        filteredShows?.append(show)
+                    }
+                }
+            } else if searchBar.selectedScopeButtonIndex == 1 {
+                for show in shows {
+                    if show.genre.uppercased().contains(searchText.uppercased()) {
+                        filteredShows?.append(show)
+                    }
                 }
             }
         }
